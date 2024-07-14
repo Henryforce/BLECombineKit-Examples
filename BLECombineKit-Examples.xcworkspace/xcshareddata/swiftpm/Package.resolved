@@ -1,0 +1,15 @@
+{
+  "originHash" : "b6dd7dd052f0f4b07a69138b97052b92402c85c7844213056de45080199124df",
+  "pins" : [
+    {
+      "identity" : "blecombinekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Henryforce/BLECombineKit",
+      "state" : {
+        "branch" : "master",
+        "revision" : "70c804b69790dffa037b7e9f7b111e1a4fd12d7d"
+      }
+    }
+  ],
+  "version" : 3
+}
