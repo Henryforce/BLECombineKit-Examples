@@ -34,7 +34,7 @@ final class CharacteristicDetailViewModel: ObservableObject {
   func readValue() {
     cancellables.forEach { $0.cancel() }
     cancellables.removeAll()
-    
+
     characteristic.readValue()
       .receive(on: DispatchQueue.main)
       .sink { event in
@@ -54,7 +54,7 @@ final class CharacteristicDetailViewModel: ObservableObject {
         }
       ).store(in: &cancellables)
   }
-  
+
   private func handleData(_ data: BLEData) {
     let encodedData = data.value.base64EncodedString()
     let hexData = data.value.reduce("") { $0 + String(format: "%02x", $1) }

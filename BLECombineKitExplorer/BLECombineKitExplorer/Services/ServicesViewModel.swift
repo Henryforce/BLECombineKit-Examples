@@ -36,7 +36,7 @@ final class ServicesViewModel: ObservableObject {
     }
     observing = true
     print("startObservingServices")
-    
+
     let peripheral = scanResult.peripheral
 
     name = peripheral.associatedPeripheral.name ?? "Unknown"

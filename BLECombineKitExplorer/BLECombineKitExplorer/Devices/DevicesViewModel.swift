@@ -86,7 +86,7 @@ final class DevicesViewModel: ObservableObject {
       print("blePeripheralMap scanResult matches selectedScanResult for \(item.identifier)")
       return
     }
-        
+
     let selectedServiceViewModel = ServicesViewModel(
       scanResult: selectedScanResult,
       parentViewModel: self
