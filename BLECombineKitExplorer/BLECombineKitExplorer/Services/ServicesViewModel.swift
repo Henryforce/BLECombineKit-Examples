@@ -19,6 +19,7 @@ final class ServicesViewModel: ObservableObject {
 
   let scanResult: BLEScanResult
   let parentViewModel: DevicesViewModel
+  var observing = false
 
   init(scanResult: BLEScanResult, parentViewModel: DevicesViewModel) {
     self.scanResult = scanResult
@@ -29,6 +30,13 @@ final class ServicesViewModel: ObservableObject {
   private var cancellables = Set<AnyCancellable>()
 
   func startObservingServices() {
+    guard !observing else {
+      print("Already observing")
+      return
+    }
+    observing = true
+    print("startObservingServices")
+    
     let peripheral = scanResult.peripheral
 
     name = peripheral.associatedPeripheral.name ?? "Unknown"
@@ -49,6 +57,7 @@ final class ServicesViewModel: ObservableObject {
   }
 
   func reset() {
+    print("Reset services")
     name = "-"
     cancellables.forEach { $0.cancel() }
     cancellables.removeAll()

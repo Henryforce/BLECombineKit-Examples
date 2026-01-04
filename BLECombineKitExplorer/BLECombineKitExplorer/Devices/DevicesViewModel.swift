@@ -75,14 +75,18 @@ final class DevicesViewModel: ObservableObject {
 
   func itemViewWasTapped(with item: ScannedPeripheralItem) {
     stopScan()
-    guard let selectedScanResult = blePeripheralMap[item.identifier] else { return }
+    guard let selectedScanResult = blePeripheralMap[item.identifier] else {
+      print("blePeripheralMap empty for \(item.identifier)")
+      return
+    }
     if let oldScanResult = scanResult,
       oldScanResult.peripheral.associatedPeripheral.identifier
         == selectedScanResult.peripheral.associatedPeripheral.identifier
     {
+      print("blePeripheralMap scanResult matches selectedScanResult for \(item.identifier)")
       return
     }
-
+        
     let selectedServiceViewModel = ServicesViewModel(
       scanResult: selectedScanResult,
       parentViewModel: self

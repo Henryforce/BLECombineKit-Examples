@@ -35,7 +35,8 @@ struct ServicesView: View {
           }
         }
       }.padding()
-    }.onAppear {
+    }
+    .onAppear {
       //            self.characteristicsViewModel.reset()
       viewModel.startObservingServices()
     }

@@ -12,10 +12,10 @@ import SwiftUI
 
 struct ContentView: View {
 
-  @ObservedObject var viewModel: DevicesViewModel
+  @StateObject var viewModel: DevicesViewModel
 
   init(with viewModel: DevicesViewModel) {
-    self.viewModel = viewModel
+    self._viewModel = StateObject(wrappedValue: viewModel)
   }
 
   var body: some View {
@@ -28,6 +28,7 @@ struct ContentView: View {
         EmptyView()
           .navigationDestination(for: BLEExplorerScreen.self) { screen in
             BLEExplorerScreenView(screen: screen)
+              .id(screen)
           }
       }
     }

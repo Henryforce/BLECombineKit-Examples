@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum BLEExplorerScreen {
+enum BLEExplorerScreen: Hashable {
   case services(ServicesViewModel)
   case characteristics(CharacteristicsViewModel)
   case characteristicDetails(CharacteristicDetailViewModel)
@@ -43,7 +43,7 @@ extension BLEExplorerScreen: Equatable {
   }
 }
 
-extension BLEExplorerScreen: Hashable {
+extension BLEExplorerScreen {
   func hash(into hasher: inout Hasher) {
     switch self {
     case .services(let viewModel):
