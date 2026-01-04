@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Henryforce/BLECombineKit",
       "state" : {
-        "branch" : "master",
-        "revision" : "70c804b69790dffa037b7e9f7b111e1a4fd12d7d"
+        "branch" : "concurrency_update",
+        "revision" : "6621bad4aa9bbffc76ff2576d9e6b7fb913463dc"
       }
     }
   ],

@@ -10,6 +10,7 @@ import Combine
 import CoreBluetooth
 import SwiftUI
 
+@MainActor
 final class DevicesViewModel: ObservableObject {
 
   @Published var peripherals = [ScannedPeripheralItem]()
@@ -35,9 +36,10 @@ final class DevicesViewModel: ObservableObject {
     scanForPeripheralsCancellable =
       centralManager
       .scanForPeripherals(withServices: nil, options: nil)
+      .receive(on: DispatchQueue.main)
       .sink(
         receiveCompletion: { completion in
-          print(completion)
+          print("Scanning completion \(completion)")
         },
         receiveValue: { [weak self] scanResult in
           guard let self = self, self.canUpdate else { return }

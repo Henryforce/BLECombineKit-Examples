@@ -10,6 +10,7 @@ import Combine
 import CoreBluetooth
 import SwiftUI
 
+@MainActor
 final class ServicesViewModel: ObservableObject {
   let id = UUID()
 
@@ -35,6 +36,7 @@ final class ServicesViewModel: ObservableObject {
     peripheral.connect(with: [:])
       .first()
       .flatMap { $0.discoverServices(serviceUUIDs: nil) }
+      .receive(on: DispatchQueue.main)
       .sink(
         receiveCompletion: { event in
           print("Services scan completed: \(event)")

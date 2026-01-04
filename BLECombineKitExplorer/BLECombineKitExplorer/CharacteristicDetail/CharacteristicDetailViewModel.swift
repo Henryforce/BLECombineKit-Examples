@@ -11,6 +11,7 @@ import CoreBluetooth
 import Foundation
 import SwiftUI
 
+@MainActor
 final class CharacteristicDetailViewModel: ObservableObject {
   let id = UUID()
   @Published var name = "-"
@@ -33,22 +34,33 @@ final class CharacteristicDetailViewModel: ObservableObject {
   func readValue() {
     cancellables.forEach { $0.cancel() }
     cancellables.removeAll()
+    
+    characteristic.readValue()
+      .receive(on: DispatchQueue.main)
+      .sink { event in
+        print(event)
+      } receiveValue: { [weak self] data in
+        self?.handleData(data)
+      }.store(in: &cancellables)
 
     characteristic.observeValue()
-      .receive(on: RunLoop.main)
+      .receive(on: DispatchQueue.main)
       .sink(
         receiveCompletion: { event in
           print(event)
         },
         receiveValue: { [weak self] data in
-          guard let self = self else { return }
-          let encodedData = data.value.base64EncodedString()
-          let hexData = data.value.reduce("") { $0 + String(format: "%02x", $1) }
-
-          self.encodedData = encodedData
-          self.hexData = hexData
+          self?.handleData(data)
         }
       ).store(in: &cancellables)
+  }
+  
+  private func handleData(_ data: BLEData) {
+    let encodedData = data.value.base64EncodedString()
+    let hexData = data.value.reduce("") { $0 + String(format: "%02x", $1) }
+
+    self.encodedData = encodedData
+    self.hexData = hexData
   }
 
 }

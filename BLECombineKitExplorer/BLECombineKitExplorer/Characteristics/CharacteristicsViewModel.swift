@@ -9,6 +9,7 @@ import BLECombineKit
 import Combine
 import Foundation
 
+@MainActor
 final class CharacteristicsViewModel: ObservableObject {
   let id = UUID()
   @Published var name = "-"
@@ -31,6 +32,7 @@ final class CharacteristicsViewModel: ObservableObject {
     name = service.value.uuid.uuidString
 
     service.discoverCharacteristics(characteristicUUIDs: [])
+      .receive(on: DispatchQueue.main)
       .sink(
         receiveCompletion: { event in
           print("Characteristics scan completed: \(event)")
